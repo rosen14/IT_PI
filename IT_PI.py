@@ -341,7 +341,7 @@ def main(
         for a in a_list:
             normalized_a = tuple(x / a[2] for x in a) if len(a) > 2 and a[2] != 0 else tuple(a)
             normalized_a = np.round(normalized_a,2)
-        normalized_a_list.append(normalized_a)
+            normalized_a_list.append(normalized_a)
         print('a_list:',normalized_a_list)
         normalized_coef_pi_list = [np.dot(a, basis_matrices) for a in normalized_a_list]
         input_list   = [calc_pi(a, basis_matrices, X) for a in normalized_a_list]
@@ -351,11 +351,11 @@ def main(
         #print('a_list_o =', a_list_o)
 
         modified_a_list_o = []
-        for a_o, norm_a in zip(a_list_o, normalized_a_list):
-            ratio = a_o[2] / norm_a[2] if norm_a[2] != 0 else 1.0
-            modified_a_o = tuple(a_o[i] - norm_a[i] * ratio for i in range(len(a_o)))
+        first_norm_a = normalized_a_list[0]
+        for a_o in a_list_o:
+            ratio = a_o[2] / first_norm_a[2] if first_norm_a[2] != 0 else 1.0
+            modified_a_o = tuple(a_o[i] - first_norm_a[i] * ratio for i in range(len(a_o)))
             modified_a_list_o.append(modified_a_o)
-
         a_list_o = modified_a_list_o
 
         coef_pi_o = np.dot(a_list_o[0], basis_matrices)
