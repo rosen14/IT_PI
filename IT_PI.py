@@ -339,7 +339,7 @@ def main(
     if optimize_output:
         normalized_a_list = []
         for a in a_list:
-            normalized_a = tuple(x / a[2] for x in a)
+            normalized_a = tuple(x / a[2] for x in a) if len(a) > 2 and a[2] != 0 else tuple(a)
             normalized_a = np.round(normalized_a,2)
         normalized_a_list.append(normalized_a)
         print('a_list:',normalized_a_list)
