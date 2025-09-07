@@ -9,7 +9,8 @@ from pprint import pprint
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
-
+plt.rcParams['font.family'] = 'Times New Roman'  # Set the font to Times New Roman
+plt.rcParams['text.usetex'] = True  # Use LaTeX for all text rendering
 
 ###############################################
 # Basis computation (Null space of D_in)
@@ -189,13 +190,18 @@ def plot_error_bars(input_PI, epsilon, uq):
         x_labels.append(r'$\mathbf{\Pi}^*$')  # For the joint set
 
     print("x_labels:", x_labels)
-    plt.figure(figsize=(max(4, 1.2 * len(x_labels)), 3))
+    plt.figure(figsize=(4, 2))
+    plt.gca().spines['top'].set_linewidth(1.5)
+    plt.gca().spines['bottom'].set_linewidth(1.5)
+    plt.gca().spines['left'].set_linewidth(1.5)
+    plt.gca().spines['right'].set_linewidth(1.5)
     plt.bar(x_labels, epsilon, yerr=uq, capsize=5, edgecolor='black', color='red')
     plt.xticks(fontsize=20)
-    plt.yticks(fontsize=16)
+    plt.yticks([0, 0.2, 0.4, 0.6, 0.8, 1.0], fontsize=20)
     plt.ylabel(r'$\tilde{\epsilon}_{L B}$', fontsize=20, labelpad=15)
     plt.ylim([0, 1])
     plt.tight_layout()
+    plt.savefig('UQ.eps', dpi=300, bbox_inches='tight',transparent=True)
     plt.show()
     
 ###############################################
