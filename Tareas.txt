@@ -1,0 +1,5 @@
+* Veo que las potencias están limitadas a máximo 1. Verificar los
+casos donde se deberían obtener exponentes mayores a 1  si es que la
+solución está escaleada.
+
+* Verificar en los ejemplos que funcionan si el escaleado (estándar o minmax) funciona.
