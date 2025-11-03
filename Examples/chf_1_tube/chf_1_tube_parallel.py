@@ -17,7 +17,7 @@ current_notebook_dir = os.getcwd()
 project_root_dir = os.path.join(current_notebook_dir, '..', '..')
 it_pi_module_dir = project_root_dir
 sys.path.append(it_pi_module_dir)
-import IT_PI
+import IT_PI_parallel as IT_PI
 plt.rcParams['font.family'] = 'Times New Roman'  # Set the font to Times New Roman
 plt.rcParams['text.usetex'] = True  # Use LaTeX for all text rendering/', VIEW.as_view(), name=''),
 from sklearn.preprocessing import StandardScaler
@@ -55,7 +55,7 @@ Y.reshape(-1, 1)
 #        [-3, -1,  0,  0,  0, -2, -1,  0,  0],
 #        [ 1,  0,  0,  0,  1,  0,  0,  0,  0],
 #        [ 0,  0,  1,  0,  0, -1,  0,  0,  0]])
-num_input      = 1
+num_input      = 2
 
 
 # In[6]:
@@ -105,46 +105,7 @@ results = IT_PI.main(
     seed=50
 )
 
-
-
-
-# In[9]:
-
-
-# Run dimensionless learning
-results = IT_PI.main(
-    X,
-    Y.reshape(-1, 1),
-    basis_matrices,
-    num_input=num_input,
-    estimator="binning",
-    estimator_params={"num_bins": 50},
-    popsize=3000,
-    maxiter=50000,
-    num_trials=50,
-    seed=50
-)
-
-
-
-
-# In[20]:
-
-
-fig = plt.figure(figsize=(4, 4))
-plt.scatter(input_PI,output_PI)
-plt.xlabel(r" $\Pi^* $", fontsize=25, labelpad=8)  
-plt.ylabel(r" $\Pi_{o}^*$", fontsize=25, labelpad=8)
-#plt.xscale("log")
-#plt.yscale("log")
-plt.xticks(fontsize=25)
-plt.yticks(fontsize=25)
-plt.tight_layout()
-#fig.savefig("keyhole.pdf", format="pdf", bbox_inches="tight",transparent = "True")
-
-
 # In[10]:
-
 
 input_PI = results["input_PI"]
 output_PI = results["output_PI"]
@@ -159,6 +120,24 @@ for j, label in enumerate(optimal_pi_lab):
     print(f'Optimal_pi_lab[{j}] = {label}')
     
 #input_PI[:, [0, 1]] = input_PI[:, [1, 0]]
+
+
+
+
+# In[20]:
+
+
+fig = plt.figure(figsize=(4, 4))
+plt.scatter(input_PI, output_PI)
+plt.xlabel(r" $\Pi^* $", fontsize=25, labelpad=8)  
+plt.ylabel(r" $\Pi_{o}^*$", fontsize=25, labelpad=8)
+#plt.xscale("log")
+#plt.yscale("log")
+plt.xticks(fontsize=25)
+plt.yticks(fontsize=25)
+plt.tight_layout()
+#fig.savefig("keyhole.pdf", format="pdf", bbox_inches="tight",transparent = "True")
+
 
 
 # In[11]:
