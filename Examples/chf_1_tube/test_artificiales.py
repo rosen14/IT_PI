@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Oct 31 14:22:28 2025
+
+@author: Termohidraulica
+"""
+
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -44,7 +51,7 @@ data.drop(['CHF'], axis = 1, inplace = True)
 #output_list = ["Phi"]
 input_list = list(data.keys())
 X = np.array(data[input_list])
-Y = np.array(Bo_chf)
+Y = np.sin(np.array(data['Mass Flux']*data['Tube Diameter']/data['muf']))#np.array(Bo_chf)
 Y.reshape(-1, 1)
 
 

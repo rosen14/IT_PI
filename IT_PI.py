@@ -312,12 +312,20 @@ def main(
             optimize_output=optimize_output
         )
 
-    #es = CMAEvolutionStrategy([0.]*num_para_total, 0.5, options)
-    es = CMAEvolutionStrategy([-0.7]*num_para_total, 0.7, options)
+    es = CMAEvolutionStrategy([0.1]*num_para_total, 0.5, options)
+    #es = CMAEvolutionStrategy([-0.7]*num_para_total, 0.7, options)
+
     while not es.stop():
         solutions = es.ask()
         es.tell(solutions, [objective_fn(x) for x in solutions])
         es.disp()
+    # from cma.fitness_transformations import EvalParallel2
+    # with EvalParallel2(12) as eval_all:
+    #     while not es.stop():
+    #         solutions = es.ask()
+    #         es.tell(solutions, eval_all(solutions, objective_fn))
+    #         es.disp()
+            
     es.result_pretty()
 
     optimized_params = es.result.xbest
