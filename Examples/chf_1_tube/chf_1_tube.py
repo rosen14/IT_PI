@@ -47,6 +47,9 @@ X = np.array(data[input_list])
 Y = np.array(Bo_chf)
 Y.reshape(-1, 1)
 
+Nrho = data['rhog']/data['rhof']
+Nsub = 
+
 
 # In[5]:
 
@@ -91,18 +94,30 @@ print(num_input)
 # In[10]:
 
 
+# # Run dimensionless learning
+# results = IT_PI.main(
+#     X,
+#     Y.reshape(-1, 1),
+#     basis_matrices,
+#     num_input=num_input,
+#     estimator="kraskov",
+#     estimator_params={"k": 5},
+#     seed=42
+# )
+
 # Run dimensionless learning
 results = IT_PI.main(
     X,
     Y.reshape(-1, 1),
     basis_matrices,
     num_input=num_input,
-    estimator="kraskov",
-    estimator_params={"k": 5},
-    seed=42
+    estimator="binning",
+    estimator_params={"num_bins": 50},
+    popsize=300,
+    maxiter=50000,
+    num_trials=50,
+    seed=50
 )
-
-
 
 
 # In[10]:
@@ -272,7 +287,20 @@ plot_ratio_X1(input_PI[:,0], input_PI[:,1], ratio_X1)
 
 
 # In[ ]:
+    
+import pickle
 
+workspace = {}
+globals_copy = dict(globals())
 
+for key, value in globals_copy.items():
+    if not key.startswith('_') and not callable(value) and not hasattr(value, '__module__'):
+        try:
+            pickle.dumps(value)  # Test if it can be pickled
+            workspace[key] = value
+        except (TypeError, AttributeError):
+            print(f"Skipping {key} - cannot pickle")
 
+with open('output_chf_1_tube_2inputs_Parallel_kraskov.pkl', 'wb') as f:
+    pickle.dump(workspace, f)
 

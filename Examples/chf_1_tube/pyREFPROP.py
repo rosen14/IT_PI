@@ -20,8 +20,8 @@ Entropy      Entropy      Therm. Cond. Therm. Cond. Viscosity    Viscosity
 
 -------------------------------------------------------------------------------
 
-Surf. Tension  
-(N/m)
+Surf. Tension  Liquid Cp
+(N/m)          (kJ/kg-K)
 
 -------------------------------------------------------------------------------
 
@@ -34,7 +34,7 @@ data_pressure = pd.read_csv("pressure_table2_refprop.txt",
                                      'Liquid Entropy', 'Vapor Entropy',
                                      'Liquid Therm Cond', 'Vapor Term Cond',
                                      'Liquid Viscosity', 'Vapor Viscosity',
-                                     'Surf Tension'])
+                                     'Surf Tension', 'Liquid Cp'])
 
 data_temperature = pd.read_csv("temperature_table2_refprop.txt",
                             skiprows=[0,1,2,3,4], sep=  '\s+', decimal=",",
@@ -60,3 +60,4 @@ muf_P = interpolate.interp1d(data_pressure['Pressure'], data_pressure['Liquid Vi
 
 sigma_P = interpolate.interp1d(data_pressure['Pressure'], data_pressure['Surf Tension'])
 
+cpf_P = interpolate.interp1d(data_pressure['Pressure'], data_pressure['Liquid Cp'])

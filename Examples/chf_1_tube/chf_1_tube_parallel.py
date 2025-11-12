@@ -49,12 +49,6 @@ Y.reshape(-1, 1)
 
 
 # In[5]:
-
-
-#D_in = np.matrix([[ 2,  1,  0,  1, -3,  2,  2,  1,  1],
-#        [-3, -1,  0,  0,  0, -2, -1,  0,  0],
-#        [ 1,  0,  0,  0,  1,  0,  0,  0,  0],
-#        [ 0,  0,  1,  0,  0, -1,  0,  0,  0]])
 num_input      = 2
 
 
@@ -97,13 +91,24 @@ results = IT_PI.main(
     Y.reshape(-1, 1),
     basis_matrices,
     num_input=num_input,
-    estimator="binning",
-    estimator_params={"num_bins": 50},
-    popsize=3000,
-    maxiter=50000,
-    num_trials=50,
-    seed=50
+    estimator="kraskov",
+    estimator_params={"k": 20},
+    seed=42
 )
+
+# Run dimensionless learning
+# results = IT_PI.main(
+#     X,
+#     Y.reshape(-1, 1),
+#     basis_matrices,
+#     num_input=num_input,
+#     estimator="binning",
+#     estimator_params={"num_bins": 50},
+#     popsize=300,
+#     maxiter=50000,
+#     num_trials=50,
+#     seed=50
+# )
 
 # In[10]:
 

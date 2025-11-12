@@ -24,7 +24,7 @@ current_notebook_dir = os.getcwd()
 project_root_dir = os.path.join(current_notebook_dir, '..', '..')
 it_pi_module_dir = project_root_dir
 sys.path.append(it_pi_module_dir)
-import IT_PI
+import IT_PI_parallel as IT_PI
 plt.rcParams['font.family'] = 'Times New Roman'  # Set the font to Times New Roman
 plt.rcParams['text.usetex'] = True  # Use LaTeX for all text rendering/', VIEW.as_view(), name=''),
 from sklearn.preprocessing import StandardScaler
@@ -110,7 +110,19 @@ results = IT_PI.main(
 )
 
 
-
+# Run dimensionless learning
+results = IT_PI.main(
+    X,
+    Y.reshape(-1, 1),
+    basis_matrices,
+    num_input=num_input,
+    estimator="binning",
+    #estimator_params={"num_bins": 50},
+    #popsize=300,
+   # maxiter=50000,
+    #num_trials=50,
+   # seed=50
+)
 
 # In[10]:
 

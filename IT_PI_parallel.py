@@ -331,8 +331,9 @@ def main(
             optimize_output=optimize_output
         )
 
-    es = CMAEvolutionStrategy([0.1]*num_para_total, 0.5, options)
-    
+    #es = CMAEvolutionStrategy([-1.5]*num_para_total, 1, options)
+    es = CMAEvolutionStrategy(
+        [0,0,0,0.1,1.05,0.05,0,0,0,0], 0.1, options)
     objective_partial = partial(
         objective_fn_global,
         X=X,
